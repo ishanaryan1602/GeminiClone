@@ -16,7 +16,9 @@ const Main = () => {
         loading,
         setLoading,
         resultData,
-        setResultData } = useContext(Context);
+        setResultData,
+        onSent
+    } = useContext(Context);
 
     const [showSend, setShowSend] = useState(false);
 
@@ -44,7 +46,9 @@ const Main = () => {
             };
     };
 
-
+    const handleSend = async () => {
+        await onSent();
+    }
 
 
     return (
@@ -78,11 +82,11 @@ const Main = () => {
                 </div>
                 <div className="main-bottom">
                     <div className="search-box" style={{ paddingRight: getRightPadding(showSend) }} >
-                        <input type="text" placeholder='Enter a prompt here' onChange={handleInputChange} />
+                        <input type="text" placeholder='Entere a prompt here' onChange={handleInputChange} value={input} />
                         <div>
                             <img src={assets.gallery_icon} alt="" />
                             <img src={assets.mic_icon} alt="" />
-                            <img src={assets.send_icon} alt="" className='sends_button' style={getTransformation(showSend)} />
+                            <img src={assets.send_icon} alt="" className='sends_button' style={getTransformation(showSend)} onClick={handleSend} />
 
                         </div>
                     </div>
