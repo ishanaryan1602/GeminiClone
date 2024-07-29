@@ -3,25 +3,38 @@ import run from "../config/gemini";
 
 export const Context = createContext();
 
-const  ContextProvider = (props) => {
+const ContextProvider = (props) => {
 
-    const [input , setInput] = useState("");
-    const [recentPrompt , setRecentPrompt] = useState("");
-    const [prevPrompt , setPrevPrompt] = useState([]);
-    const [showResult , setShowResult] = useState(false);
-    const [loading , setLoading] = useState(false);
-    const [resultData , setResultData] = useState("");
+    const [input, setInput] = useState("");
+    const [recentPrompt, setRecentPrompt] = useState("");
+    const [prevPrompt, setPrevPrompt] = useState([]);
+    const [showResult, setShowResult] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [resultData, setResultData] = useState("");
 
 
 
     const onSent = async (prompt) => {
-        await run(prompt);
+        await run(input);
     }
 
-    const contextValue = {};
+    const contextValue = {
+        input,
+        setInput,
+        recentPrompt,
+        setRecentPrompt,
+        prevPrompt,
+        setPrevPrompt,
+        showResult,
+        setShowResult,
+        loading,
+        setLoading,
+        resultData,
+        setResultData
+    };
 
     return (
-        <Context.Provider value = {contextValue}>
+        <Context.Provider value={contextValue}>
             {props.children}
         </Context.Provider>
     )

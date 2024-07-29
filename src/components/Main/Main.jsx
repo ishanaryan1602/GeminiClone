@@ -1,18 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Main.css'
 import { assets } from '../../assets/assets'
+import { Context } from '../../context/Context';
+
 const Main = () => {
 
-    const [inputVal, setInputVal] = useState('');
+    const { input,
+        setInput,
+        recentPrompt,
+        setRecentPrompt,
+        prevPrompt,
+        setPrevPrompt,
+        showResult,
+        setShowResult,
+        loading,
+        setLoading,
+        resultData,
+        setResultData } = useContext(Context);
+
     const [showSend, setShowSend] = useState(false);
 
     const handleInputChange = (e) => {
-        setInputVal(e.target.value);
+        setInput(e.target.value);
     }
 
     useEffect(() => {
-        setShowSend(inputVal.trim() !== '');
-    }, [inputVal]);
+        setShowSend(input.trim() !== '');
+    }, [input]);
 
     const getRightPadding = (showSend) => {
         return showSend ? 20 : 5
@@ -29,6 +43,8 @@ const Main = () => {
                 height: 0,
             };
     };
+
+
 
 
     return (
