@@ -156,3 +156,8 @@ img.msg-icon-recent {
   background: #d3e3fd;
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
