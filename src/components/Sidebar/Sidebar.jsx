@@ -5,7 +5,7 @@ import { Context } from '../../context/Context';
 
 const Sidebar = () => {
 
-  const [extended, setExtended] = useState(false);
+  const [extended, setExtended] = useState(true);
   const { input,
     setInput,
     recentPrompt,
@@ -18,7 +18,8 @@ const Sidebar = () => {
     setLoading,
     resultData,
     setResultData,
-    onSent } = useContext(Context);
+    onSent,
+    newChat } = useContext(Context);
 
   const getPadding = (extended) => {
     return extended ?
@@ -40,7 +41,7 @@ const Sidebar = () => {
       ?
       {
         transform: 'rotateY(0deg)',
-        transition: 'transform 0.6s',
+        transition: 'transform 0.2s',
       }
       :
       {
@@ -51,12 +52,34 @@ const Sidebar = () => {
       };
   }
 
+  const getAddressStyle = (extended) => {
+    return extended
+      ?
+      {
+        transition: '0.3s',
+        transform: 'translateY(0px)',
+        transitionDelay: '0.15s',
+      }
+      :
+      {
+        height: '0px',
+        width: '0px',
+        transform: 'translateY(55px)',
+        transitionDelay: '0s',
+      }
+  }
+
+  const loadPrompt = async (prompt) => {
+    setRecentPrompt(prompt);
+    await onSent(prompt);
+  }
+
   return (
     <>
       <div className="sidebar">
         <div className="top">
           <img className='menu' src={assets.menu_icon} alt="" onClick={() => setExtended(prev => !prev)} />
-          <div className="new-chat" style={getPadding(extended)}>
+          <div className="new-chat" style={getPadding(extended)} onClick={newChat}>
             <img src={assets.plus_icon} alt="" />
             {/* {
               extended ? <p className='new-chat-p' style={getStyleOnExtend(extended)}>New Chat</p> : <p></p>
@@ -69,7 +92,7 @@ const Sidebar = () => {
               {
                 prevPrompt?.map((item, index) => {
                   return (
-                    <div className="recent-entry history">
+                    <div className="recent-entry history" onClick={() => loadPrompt(item)}>
                       <img src={assets.message_icon} alt="" className='msg-icon-recent' />
                       <p>{item.slice(0, 18)} ...</p>
                     </div>
@@ -110,13 +133,16 @@ const Sidebar = () => {
             }
 
           </div>
-          {
+          {/* {
             extended ? <div className="bottom-item address">
               <p className='black-p'>Ghaziabad, Uttar Pradesh, India</p>
               <p className="blue-p">From your IP address • Update location</p>
             </div> : null
-          }
-
+          } */}
+          <div className="bottom-item address" style={getAddressStyle(extended)}>
+            <p className='black-p'>Ghaziabad, Uttar Pradesh, India</p>
+            <p className="blue-p">From your IP address • Update location</p>
+          </div>
         </div>
       </div>
 

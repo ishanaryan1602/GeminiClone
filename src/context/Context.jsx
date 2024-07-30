@@ -18,14 +18,28 @@ const ContextProvider = (props) => {
         }, 75 * index);
     }
 
+    const newChat = () => {
+        setLoading(false);
+        setShowResult(false);
+
+    }
+
     const onSent = async (prompt) => {
         setResultData("");
         setLoading(true);
         setShowResult(true);
-        setRecentPrompt(input);
-        setPrevPrompt(prev => [...prev, input])
-        const response = await run(input);
-        let newresponseArray = response.split(" ");
+        let response1;
+        if (prompt != undefined) {
+            response1 = await run(prompt);
+            setRecentPrompt(prompt);
+        }
+        else {
+            setPrevPrompt(prev => [...prev, input]);
+            setRecentPrompt(input);
+            response1 = await run(input);
+
+        }
+        let newresponseArray = response1.split(" ");
         for (let i = 0; i < newresponseArray.length; i++) {
             const nextWord = newresponseArray[i];
             delayPara(i, nextWord + " ");
@@ -48,7 +62,8 @@ const ContextProvider = (props) => {
         setLoading,
         resultData,
         setResultData,
-        onSent
+        onSent,
+        newChat
     };
 
     return (
