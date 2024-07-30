@@ -72,7 +72,7 @@ const Main = () => {
                                         <hr />
                                         <hr />
                                         <hr />
-                                    </div> : <p dangerouslySetInnerHTML={{ __html: resultData }} style={{ marginTop: '10px' }}></p>
+                                    </div> : <p dangerouslySetInnerHTML={{ __html: resultData }} style={{ marginTop: '6px' }}></p>
                                 }
 
                             </div>

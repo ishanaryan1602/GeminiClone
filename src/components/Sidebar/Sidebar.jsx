@@ -1,10 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './Sidebar.css'
 import { assets } from '../../assets/assets'
+import { Context } from '../../context/Context';
 
 const Sidebar = () => {
 
   const [extended, setExtended] = useState(false);
+  const { input,
+    setInput,
+    recentPrompt,
+    setRecentPrompt,
+    prevPrompt,
+    setPrevPrompt,
+    showResult,
+    setShowResult,
+    loading,
+    setLoading,
+    resultData,
+    setResultData,
+    onSent } = useContext(Context);
 
   const getPadding = (extended) => {
     return extended ? '10px 15px' : '10px 13px';
@@ -28,10 +42,17 @@ const Sidebar = () => {
           {
             extended ? <div className="recent">
               <p className="recent-title">Recent</p>
-              <div className="recent-entry history active">
-                <img src={assets.message_icon} alt="" className='msg-icon-recent' />
-                <p>What is react... </p>
-              </div>
+              {
+                prevPrompt?.map((item, index) => {
+                  return (
+                    <div className="recent-entry history">
+                      <img src={assets.message_icon} alt="" className='msg-icon-recent' />
+                      <p>{item.slice(0, 18)} ...</p>
+                    </div>
+                  )
+                })
+              }
+
             </div> : null
           }
 
