@@ -8,6 +8,8 @@
   position: relative;
   overflow: hidden;
   transition: 2s;
+  width: fit-content;
+  transition: 2s;
 }
 
 .sidebar img {
@@ -30,6 +32,12 @@
   font-size: 14px;
   color: gray;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.sidebar .new-chat p {
+  transition: 0.3s;
+  transform-origin: left top!important;
 }
 
 .sidebar .new-chat img {
@@ -144,5 +152,5 @@ img.msg-icon-recent {
 }
 
 .recent-entry.history.active {
-  background: #D3E3FD;
+  background: #d3e3fd;
 }

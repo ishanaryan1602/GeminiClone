@@ -21,11 +21,25 @@ const Sidebar = () => {
     onSent } = useContext(Context);
 
   const getPadding = (extended) => {
-    return extended ? '10px 15px' : '10px 13px';
+    return extended ? '10px 15px' : '10px 3px 10px 13px';
   }
 
   const getInset = (extended) => {
     return extended ? '50% 210px' : '-5px auto auto 15px';
+  }
+
+  const getStyleOnExtend = (extended) => {
+    return extended
+      ?
+      {
+        transform: 'rotateY(0deg)',
+      }
+      :
+      {
+        transform: 'rotateY(90deg)',
+        width: '0px',
+        height: '0px',
+      };
   }
 
   return (
@@ -33,11 +47,12 @@ const Sidebar = () => {
       <div className="sidebar">
         <div className="top">
           <img className='menu' src={assets.menu_icon} alt="" onClick={() => setExtended(prev => !prev)} />
-          <div className="new-chat" style={{ padding: getPadding(extended) }}>
+          <div className="new-chat" style={{ padding: getPadding(extended)  }}>
             <img src={assets.plus_icon} alt="" />
-            {
+            {/* {
               extended ? <p className='new-chat-p'>New Chat</p> : null
-            }
+            } */}
+            <p className='new-chat-p' style={getStyleOnExtend(extended)}>New Chat</p>
           </div>
           {
             extended ? <div className="recent">
@@ -70,7 +85,6 @@ const Sidebar = () => {
           <div className="bottom-item recent-entry">
             <div style={{ position: 'relative' }}>
               <img src={assets.history_icon} alt="" />
-              {/* <div className="red-circle" style={{inset: getInset(extended)}}></div> */}
             </div>
             {
               extended ? <p>Activity</p> : null
