@@ -21,7 +21,14 @@ const Sidebar = () => {
     onSent } = useContext(Context);
 
   const getPadding = (extended) => {
-    return extended ? '10px 15px' : '10px 3px 10px 13px';
+    return extended ?
+      {
+        padding: '10px 15px',
+      }
+      :
+      {
+        padding: '10px 5px 10px 15px',
+      };
   }
 
   const getInset = (extended) => {
@@ -33,10 +40,12 @@ const Sidebar = () => {
       ?
       {
         transform: 'rotateY(0deg)',
+        transition: 'transform 0.6s',
       }
       :
       {
         transform: 'rotateY(90deg)',
+        transition: 'transform 0.01s',
         width: '0px',
         height: '0px',
       };
@@ -47,10 +56,10 @@ const Sidebar = () => {
       <div className="sidebar">
         <div className="top">
           <img className='menu' src={assets.menu_icon} alt="" onClick={() => setExtended(prev => !prev)} />
-          <div className="new-chat" style={{ padding: getPadding(extended)  }}>
+          <div className="new-chat" style={getPadding(extended)}>
             <img src={assets.plus_icon} alt="" />
             {/* {
-              extended ? <p className='new-chat-p'>New Chat</p> : null
+              extended ? <p className='new-chat-p' style={getStyleOnExtend(extended)}>New Chat</p> : <p></p>
             } */}
             <p className='new-chat-p' style={getStyleOnExtend(extended)}>New Chat</p>
           </div>

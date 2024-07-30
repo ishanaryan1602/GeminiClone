@@ -33,12 +33,13 @@
   color: gray;
   cursor: pointer;
   overflow: hidden;
+  transition: 0.3s;
 }
 
 .sidebar .new-chat p {
-  transition: 0.3s;
-  transform-origin: left top!important;
+  transform-origin: left;
 }
+
 
 .sidebar .new-chat img {
   width: 12px;
